@@ -2,13 +2,15 @@
 
 return [
     'components' => [
-        'db' => [
-            'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost;dbname=votingonline',
-            'username' => 'votingonline_user',
-            'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
-            'charset' => 'utf8',
-        ],
+    'db' => [
+        'class' => \yii\db\Connection::class,
+        'dsn' => 'pgsql:host=dpg-d1v7hcjuibrs73958tug-a.oregon-postgres.render.com;port=5432;dbname=votingonline',
+        'username' => 'votingonline_user',
+        'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
+        'charset' => 'utf8',
+    ],
+    // ... mailer or other components ...
+
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@common/mail',
