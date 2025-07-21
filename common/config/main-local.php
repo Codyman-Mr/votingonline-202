@@ -13,7 +13,6 @@ return [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@common/mail',
             'useFileTransport' => true,
-            // Usitumie transport kwa sasa kama hutumi barua pepe halisi
         ],
     ],
 ];
