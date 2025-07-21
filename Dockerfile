@@ -14,5 +14,10 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
 # Copy app files
 COPY . /var/www/html
 
+# Install dependencies
+RUN apt-get update && apt-get install -y unzip git && \
+    curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer && \
+    composer install --no-dev --optimize-autoloader --working-dir=/var/www/html
+
 # Set permissions
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
