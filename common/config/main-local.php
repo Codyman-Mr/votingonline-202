@@ -9,6 +9,8 @@ return [
             'password' => getenv('DB_PASSWORD') ?: 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
             'charset' => 'utf8',
         ],
+    ],
+];
     // ... mailer or other components ...
 
         'mailer' => [
