@@ -135,7 +135,7 @@ CSS);
     <div class="feature-box">
         <h3>2. Login to Your Dashboard</h3>
         <p>Access upcoming elections and voting history from your secure portal.</p>
-        <a href="<?= Url::to(['site/login']) ?>" class="btn btn-custom">Login</a>
+        
     </div>
 
     <div class="feature-box">
