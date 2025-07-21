@@ -12,6 +12,8 @@ return [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
+    'defaultRoute' => 'site/index', // ✅ Ongeza hapa
+
     
     // ✅ Set timezone here at the top level
     'timeZone' => 'Africa/Dar_es_Salaam',  // <-- Time zone set globally
