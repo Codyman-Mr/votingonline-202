@@ -4,7 +4,7 @@ return [
     'components' => [
     'db' => [
         'class' => \yii\db\Connection::class,
-        'dsn' => 'pgsql:host=dpg-d1v7hcjuibrs73958tug-a.oregon-postgres.render.com;port=5432;dbname=votingonline',
+       'dsn' => 'mysql:host=localhost;dbname=database_name',
         'username' => 'votingonline_user',
         'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
         'charset' => 'utf8',
