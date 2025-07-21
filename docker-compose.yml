@@ -30,7 +30,7 @@ services:
       - MYSQL_USER=yii2advanced
       - MYSQL_PASSWORD=secret
 
-  #pgsql:
+  pgsql:
   #  image: postgres:9.5
   #  environment:
   #    - POSTGRES_DB=yii2advanced
