@@ -5,8 +5,8 @@ return [
         'db' => [
             'class' => \yii\db\Connection::class,
             'dsn' => 'mysql:host=localhost;dbname=votingonline',
-            'username' => 'root',
-            'password' => '',
+            'username' => 'votingonline_user',
+            'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
             'charset' => 'utf8',
         ],
         'mailer' => [
