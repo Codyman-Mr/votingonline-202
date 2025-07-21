@@ -1,14 +1,13 @@
 <?php
 
-return [
-    'components' => [
-    'db' => [
-        'class' => \yii\db\Connection::class,
-       'dsn' => 'mysql:host=localhost;dbname=database_name',
-        'username' => 'votingonline_user',
-        'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
-        'charset' => 'utf8',
-    ],
+ 'components' => [
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'pgsql:host=dpg-d1v7hcjuibrs73958tug-a;port=5432;dbname=votingonline',
+            'username' => 'votingonline_user',
+            'password' => 'fGjXQAlVJ8HenncVjDIKQex1Zpr3Q0YF',
+            'charset' => 'utf8',
+        ],
     // ... mailer or other components ...
 
         'mailer' => [
