@@ -1,19 +1,18 @@
-FROM php:8.1-apache
+FROM php:8.2-apache
 
-# Enable Apache rewrite module
+# Enable mod_rewrite
 RUN a2enmod rewrite
 
-# Set working directory
-WORKDIR /var/www/html
+# Set the correct DocumentRoot to Yii2's entry point
+ENV APACHE_DOCUMENT_ROOT /var/www/html/frontend/web
 
-# Copy full app contents into container
-COPY . /var/www/html/
+# Update Apache config and add DirectoryIndex
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}/../!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
+    echo "DirectoryIndex index.php" >> /etc/apache2/apache2.conf
 
-# Change Apache's DocumentRoot to frontend/web
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/frontend/web|g' /etc/apache2/sites-available/000-default.conf
+# Copy app files
+COPY . /var/www/html
 
-# Allow .htaccess overrides
-RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
-
-# Set file permissions (optional but recommended)
+# Set permissions
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
