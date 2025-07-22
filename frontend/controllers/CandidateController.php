@@ -1,9 +1,9 @@
 <?php
 
-namespace frontend\controllers;
+namespace common\controllers;
 
 use Yii;
-use frontend\models\Candidate;
+use common\models\Candidate;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile; // <-- Add this line to import UploadedFile
