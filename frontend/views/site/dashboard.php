@@ -37,7 +37,7 @@ if (Yii::$app->user->isGuest) {
 <div class="dashboard-container">
     <!-- Sidebar -->
     <div class="sidebar">
-        <h2>My Dashboard</h2>
+        <h2>User Dashboard</h2>
         <a href="<?= Url::to(['site/dashboard', 'section' => 'profile']) ?>">👤 Profile</a>
         <a href="<?= Url::to(['voting/register','section' =>'Register']) ?>">📝Register Now</a>
         <a href="<?= Url::to(['site/details']) ?>" data-method="post">🗳️Cast Vote</a>
