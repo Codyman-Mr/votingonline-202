@@ -4,7 +4,7 @@ namespace frontend\models;
 
 use yii\db\ActiveRecord;
 
-class VotingRecords extends \yii\db\ActiveRecord
+class VotingRecords extends ActiveRecord
 {
     public static function tableName()
     {
@@ -33,5 +33,4 @@ class VotingRecords extends \yii\db\ActiveRecord
             'voter_id_number' => 'Voter ID Number',
         ];
     }
-
-}  // Hii ndio inakosekana kufunga class yako
+}
