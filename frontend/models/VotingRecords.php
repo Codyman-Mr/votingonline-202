@@ -28,15 +28,4 @@ class VotingRecords extends \yii\db\ActiveRecord
         ];
     }
 
-    // Relation to Voter model
-    public function getVoter()
-    {
-        return $this->hasOne(Voter::class, ['id' => 'voter_id']);
-    }
-
-    // Relation to Candidate model
-    public function getCandidate()
-    {
-        return $this->hasOne(Candidate::class, ['id' => 'candidate_id']);
-    }
-}
+    
