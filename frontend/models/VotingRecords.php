@@ -27,7 +27,7 @@ class VotingRecords extends \yii\db\ActiveRecord
             [['voter_id_number', 'full_name', 'candidate_name'], 'required'], // Ongeza candidate_name kama required
             [['voted_at'], 'safe'],
             [['voter_id_number'], 'string', 'max' => 100],
-            [['full_name'], 'string', 'max' => 255],
+            
             [['candidate_name'], 'string', 'max' => 255],  // Validation ya jina la mgombea
         ];
     }
