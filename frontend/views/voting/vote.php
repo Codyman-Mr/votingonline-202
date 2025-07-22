@@ -8,13 +8,13 @@ $candidates = [
     (object)[
         'id' => 1,
         'name' => 'Willbright Uyole',
-        'photo' => 'profile_1.png',
+        'photo' => 'profile2.png',
         'votes' => 0,
     ],
     (object)[
         'id' => 2,
         'name' => 'Cheastina Sanga',
-        'photo' => 'profile_2.png',
+        'photo' => 'chea.jpj',
         'votes' => 0,
     ],
 ];
