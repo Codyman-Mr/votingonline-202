@@ -353,7 +353,7 @@ public function actionDetails()
             return $this->redirect(['voting/vote']);
         } else {
             // If voter is not found, show error message
-            $message = "Ensure that you enter the correct information as you registered.";
+            $message = " 📓 🖊️.";
         }
     }
 
