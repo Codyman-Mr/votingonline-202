@@ -130,9 +130,7 @@ if (Yii::$app->user->isGuest) {
             <div class="card">
                 <div class="card-header" style="background-color: #28a745; color: white;">Results</div>
                 <div class="card-body">
-                    <p><strong>Election Results:</strong> Voting has been precessed</p>
-                    <p><strong>Winning Candidate:</strong> welcome</p>
-                    <p><strong>Vote Count:</strong> Votes</p>
+                    <p><strong>👉 Click the “View Results” button below to see the outcome.</p>
                      <a href="<?= Url::to(['site/results', 'section' => 'profile']) ?>" class="btn btn-cancel">View Results</a>
                 </div>
             </div>
