@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta charset="<?= Yii::$app->charset ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
+    <title><?= Html::encode($this->title ?? 'Online Voting System') ?></title>
     <?php $this->head() ?>
 </head>
 <body class="d-flex flex-column h-100">
@@ -39,7 +39,7 @@ AppAsset::register($this);
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
-          ['label' => 'dashboard', 'url' => ['/site/dashboard']],
+        ['label' => 'Dashboard', 'url' => ['/site/dashboard']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -60,7 +60,7 @@ AppAsset::register($this);
             . Html::endForm();
     }
 
-    // Kipengele cha lugha kilichoboreshwa - corrected to use 'lang'
+    // Kipengele cha lugha
     echo Html::beginForm(Url::to(['/site/set-language']), 'post', ['class' => 'd-flex ms-3']);
     echo Html::dropDownList('lang', Yii::$app->language, [
         'en' => 'English',
