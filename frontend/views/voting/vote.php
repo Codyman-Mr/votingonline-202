@@ -7,15 +7,9 @@ use frontend\models\VotingRecords;
 $this->title = 'Vote for Your Candidate';
 $this->registerCssFile('@web/css/vote.css');
 
-// ensure candidates exist
-if (Candidates::find()->count() === 0) {
-    // Insert default candidates if they do not exist
-    // e.g., Willbright Uyole & Winfred Pandula with their respective photos
-}
-
 $candidates = Candidates::find()->all();
 
-// fixed photos array for candidates
+// fixed photos for candidates
 $fixedPhotos = ['profile_1.png', 'profile_2.png'];
 ?>
 
@@ -37,8 +31,8 @@ $fixedPhotos = ['profile_1.png', 'profile_2.png'];
 
         // Optional: Save the voting record in VotingRecords table
         $rec = new VotingRecords([
-          'voter_id_number' => 'guest', // Use guest or leave empty
-          'full_name' => 'Guest', // Or collect full name from input if needed
+          'voter_id_number' => 'guest',
+          'full_name' => 'Guest',
           'voted_at' => date('Y-m-d H:i:s'),
         ]);
         $rec->save();
@@ -54,6 +48,7 @@ $fixedPhotos = ['profile_1.png', 'profile_2.png'];
     <?php foreach ($candidates as $index => $candidate): ?>
       <?php
         $photo = isset($fixedPhotos[$index]) ? $fixedPhotos[$index] : 'default.png';
+        // Use Url::to('@web/uploads/...') so the URL points to frontend/web/uploads
         $photoUrl = Url::to("@web/uploads/{$photo}");
       ?>
       <div class="col-md-4 mb-4">
