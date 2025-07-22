@@ -2,11 +2,11 @@
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $candidates backend\models\Candidate[] */
+/* @var $candidates frontend\models\Candidates[] */
 
 $this->title = 'Candidates';
 ?>
-<h1>Candidates</h1>
+<h1><?= Html::encode($this->title) ?></h1>
 
 <p><?= Html::a('Add New Candidate', ['create'], ['class' => 'btn btn-success']) ?></p>
 
@@ -27,7 +27,6 @@ $this->title = 'Candidates';
             <td>
                 <?php if (!empty($candidate->photo)): ?>
                     <img src="<?= Yii::getAlias('@web') . '/uploads/' . basename($candidate->photo) ?>" width="80" alt="Candidate Photo">
-
                 <?php else: ?>
                     <em>No Photo</em>
                 <?php endif; ?>
