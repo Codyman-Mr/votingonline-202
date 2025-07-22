@@ -104,7 +104,7 @@ CSS);
 <div class="section"git remote add origin git@github.com:Codyman-Mr/voting-application.git
 >
     <h2>Why Choose Us?</h2>
-    <p>Our system provides a modern, transparent, and accessible voting process that empowers everyone to participate in decision-making from anywhere in the world.</p>
+    <p>Our system provides a modern, transparent, and accessible voting process that empowers everyone to participate in decision-making from anywhere in the world.</p><a href="<?= Url::to(['candidate/index', 'section' => 'manage-elections']) ?>">👤</a>
 
     <div class="feature-box">
         <h3>✅ Secure & Private</h3>
@@ -141,7 +141,7 @@ CSS);
     <div class="feature-box">
         <h3>3. Cast Your Vote</h3>
         <p>Choose your candidate or decision, then confirm your secure vote.</p>
-          <a href="<?= Url::to(['candidate/index', 'section' => 'manage-elections']) ?>">👤</a>
+          
     </div>
 </div>
 
