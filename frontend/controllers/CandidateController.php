@@ -7,40 +7,24 @@ use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\UploadedFile;
+use common\models\Candidate;
+
 
 class CandidateController extends Controller
 {
     public function actionIndex()
     {
-        $candidates = Candidates::find()->all();
+        $candidates = Candidate::find()->all();
         return $this->render('index', ['candidates' => $candidates]);
     }
 
     public function actionCreate()
     {
-        $model = new Candidates();
+        $model = new Candidate();
 
-        if ($model->load(Yii::$app->request->post())) {
-            // Pata uploaded file
-            $model->photoFile = UploadedFile::getInstance($model, 'photoFile');
-
-            if ($model->photoFile && $model->validate()) {
-                $uploadDir = Yii::getAlias('@frontend/web/uploads/');
-                if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-
-                $photoName = uniqid() . '.' . $model->photoFile->extension;
-                $photoPath = $uploadDir . $photoName;
-
-                if ($model->photoFile->saveAs($photoPath)) {
-                    $model->photo = $photoName;  // store filename to DB
-                    if ($model->save(false)) {   // save model without validation again
-                        Yii::$app->session->setFlash('success', 'Candidate created successfully!');
-                        return $this->redirect(['index']);
-                    }
-                }
-            }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('success', 'Candidate created successfully!');
+            return $this->redirect(['index']);
         }
 
         return $this->render('create', ['model' => $model]);
@@ -48,29 +32,35 @@ class CandidateController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = Candidates::findOne($id);
+        $model = Candidate::findOne($id);
         if (!$model) {
             throw new NotFoundHttpException('Candidate not found.');
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->photoFile = UploadedFile::getInstance($model, 'photoFile');
+            $photoFile = UploadedFile::getInstance($model, 'photo'); 
 
-            if ($model->photoFile && $model->validate()) {
+            if ($photoFile) {
                 $uploadDir = Yii::getAlias('@frontend/web/uploads/');
+                
+                // Ensure the directory exists
                 if (!is_dir($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
+                    mkdir($uploadDir, 0777, true); // Create directory if it doesn't exist
                 }
 
-                $photoName = uniqid() . '.' . $model->photoFile->extension;
-                $photoPath = $uploadDir . $photoName;
+                // Generate a simple unique filename using uniqid() without the path
+                $photoName = uniqid() . '.' . $photoFile->extension; // Create a unique file name like "1.png"
+                $photoPath = $uploadDir . $photoName; // This will be the full path on the server
 
-                if ($model->photoFile->saveAs($photoPath)) {
-                    $model->photo = $photoName;
-                }
+                // Save the photo
+                $photoFile->saveAs($photoPath);
+
+                // Save only the relative file name (without 'uploads/')
+                $model->photo = $photoName; // Save only the file name, not the full path
             }
-            
-            if ($model->save(false)) {
+
+            // Save model data
+            if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Candidate updated successfully!');
                 return $this->redirect(['index']);
             } else {
@@ -83,10 +73,11 @@ class CandidateController extends Controller
 
     public function actionDelete($id)
     {
-        $model = Candidates::findOne($id);
+        $model = Candidate::findOne($id);
         if ($model) {
             $model->delete();
         }
+
         return $this->redirect(['index']);
     }
 }
