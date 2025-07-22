@@ -124,13 +124,17 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
             </tr>
         </thead>
         <tbody id="results-body">
-            <?php foreach ($candidates as $candidate): ?>
+            <?php foreach ($candidates as $index => $candidate): ?>
+                <?php
+                    // Hardcode picha za wagombea wawili tu
+                    $photos = ['profile_1.png', 'profile_2.png'];
+                    $photoFile = isset($photos[$index]) ? $photos[$index] : 'default.png';
+                ?>
                 <tr data-id="<?= $candidate->id ?>">
                     <td>
-                        <img src="<?= \yii\helpers\Url::to("@web/uploads/{$candidate->photo}") ?>" 
-     onerror="this.src='<?= \yii\helpers\Url::to('@web/images/default.png') ?>'" 
-     alt="<?= Html::encode($candidate->name) ?>">
-
+                        <img src="<?= \yii\helpers\Url::to("@web/uploads/{$photoFile}") ?>" 
+                             onerror="this.src='<?= \yii\helpers\Url::to('@web/images/default.png') ?>'" 
+                             alt="<?= Html::encode($candidate->name) ?>">
                     </td>
                     <td><?= Html::encode($candidate->name) ?></td>
                     <td class="vote-count"><strong><?= Html::encode($candidate->votes) ?></strong></td>
@@ -141,7 +145,7 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
 </div>
 
 <?php
-$updateUrl = \yii\helpers\Url::to(['/site/result']); // Ensure this points to the correct action
+$updateUrl = \yii\helpers\Url::to(['/site/result']); // Hakikisha URL ni sahihi
 $script = <<<JS
 function updateResults() {
     $.getJSON('$updateUrl', function(data) {
@@ -158,7 +162,7 @@ function updateResults() {
     });
 }
 
-setInterval(updateResults, 5000); // every 5 seconds
+setInterval(updateResults, 5000); // update kila sekunde 5
 JS;
 
 $this->registerJs($script);
