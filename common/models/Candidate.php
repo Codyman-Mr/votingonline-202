@@ -8,7 +8,10 @@ use yii\web\UploadedFile;
 
 class Candidate extends ActiveRecord
 {
-    public $imageFile; // variable ya kupokea uploaded file
+    /**
+     * @var UploadedFile|null file upload
+     */
+    public $photoFile; // tutaweka property mpya ku hold file upload (optional)
 
     public static function tableName()
     {
@@ -20,8 +23,12 @@ class Candidate extends ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 100],
+
+            // photo ni string kwa DB, lakini wakati wa upload tuna validate kama file
             [['photo'], 'string', 'max' => 255],
-            [['imageFile'], 'file', 'extensions' => 'jpg, jpeg, png', 'skipOnEmpty' => true], // validation ya file
+
+            // Hii ni validation ya upload, ikitokea photoFile si empty
+            [['photoFile'], 'file', 'extensions' => 'jpg, jpeg, png', 'mimeTypes' => 'image/jpeg, image/png', 'skipOnEmpty' => true],
         ];
     }
 
@@ -31,22 +38,28 @@ class Candidate extends ActiveRecord
             'id' => 'ID',
             'name' => 'Candidate Name',
             'photo' => 'Candidate Photo',
-            'imageFile' => 'Upload Photo',
+            'photoFile' => 'Upload Photo',
         ];
     }
 
-    // Method ya upload, inaweza kuitwa controller
+    /**
+     * Upload photo method
+     */
     public function uploadPhoto()
     {
-        if ($this->validate()) {
-            $file = UploadedFile::getInstance($this, 'imageFile');
-            if ($file) {
-                $fileName = time() . '.' . $file->extension;
-                $filePath = Yii::getAlias('@frontend/web/uploads/') . $fileName;
-                if ($file->saveAs($filePath)) {
-                    $this->photo = $fileName; // hifadhi jina tu, sio path nzima
-                    return true;
-                }
+        // Tumia photoFile property ambayo ni UploadedFile
+        if ($this->validate() && $this->photoFile) {
+            $uploadPath = 'uploads/';
+            if (!is_dir($uploadPath)) {
+                mkdir($uploadPath, 0777, true);
+            }
+
+            $fileName = time() . '.' . $this->photoFile->extension;
+            $fullPath = $uploadPath . $fileName;
+
+            if ($this->photoFile->saveAs($fullPath)) {
+                $this->photo = $fileName; // Hifadhi jina la file kwenye DB
+                return true;
             }
         }
         return false;
