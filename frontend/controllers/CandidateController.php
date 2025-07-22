@@ -20,9 +20,27 @@ class CandidateController extends Controller
     {
         $model = new Candidates();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            Yii::$app->session->setFlash('success', 'Candidate created successfully!');
-            return $this->redirect(['index']);
+        if ($model->load(Yii::$app->request->post())) {
+            // Pata uploaded file
+            $model->photoFile = UploadedFile::getInstance($model, 'photoFile');
+
+            if ($model->photoFile && $model->validate()) {
+                $uploadDir = Yii::getAlias('@frontend/web/uploads/');
+                if (!is_dir($uploadDir)) {
+                    mkdir($uploadDir, 0777, true);
+                }
+
+                $photoName = uniqid() . '.' . $model->photoFile->extension;
+                $photoPath = $uploadDir . $photoName;
+
+                if ($model->photoFile->saveAs($photoPath)) {
+                    $model->photo = $photoName;  // store filename to DB
+                    if ($model->save(false)) {   // save model without validation again
+                        Yii::$app->session->setFlash('success', 'Candidate created successfully!');
+                        return $this->redirect(['index']);
+                    }
+                }
+            }
         }
 
         return $this->render('create', ['model' => $model]);
@@ -36,23 +54,23 @@ class CandidateController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post())) {
-            $photoFile = UploadedFile::getInstance($model, 'photo');
+            $model->photoFile = UploadedFile::getInstance($model, 'photoFile');
 
-            if ($photoFile) {
+            if ($model->photoFile && $model->validate()) {
                 $uploadDir = Yii::getAlias('@frontend/web/uploads/');
                 if (!is_dir($uploadDir)) {
                     mkdir($uploadDir, 0777, true);
                 }
 
-                $photoName = uniqid() . '.' . $photoFile->extension;
+                $photoName = uniqid() . '.' . $model->photoFile->extension;
                 $photoPath = $uploadDir . $photoName;
 
-                $photoFile->saveAs($photoPath);
-
-                $model->photo = $photoName;
+                if ($model->photoFile->saveAs($photoPath)) {
+                    $model->photo = $photoName;
+                }
             }
-
-            if ($model->save()) {
+            
+            if ($model->save(false)) {
                 Yii::$app->session->setFlash('success', 'Candidate updated successfully!');
                 return $this->redirect(['index']);
             } else {
@@ -69,7 +87,6 @@ class CandidateController extends Controller
         if ($model) {
             $model->delete();
         }
-
         return $this->redirect(['index']);
     }
 }
