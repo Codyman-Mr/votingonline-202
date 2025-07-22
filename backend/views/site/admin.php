@@ -34,6 +34,7 @@ if (Yii::$app->user->isGuest) {
     <div class="sidebar">
         <h2>My Dashboard</h2>
         
+        
         <a href="<?= Url::to(['candidate/index', 'section' => 'manage-elections']) ?>">👤 Manage Elections</a>
         <a class="nav-link" href="<?=Url::to(['/site/registered-voters']) ?>">🧾 Registered Voters</a>
          <a class="nav-link" href="<?=Url::to(['/site/voting-records']) ?>">🗳️ Voting Records</a>
