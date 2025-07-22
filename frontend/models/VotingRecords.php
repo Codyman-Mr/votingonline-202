@@ -1,3 +1,9 @@
+<?php
+
+namespace frontend\models;
+
+use yii\db\ActiveRecord;
+
 class VotingRecords extends \yii\db\ActiveRecord
 {
     public static function tableName()
