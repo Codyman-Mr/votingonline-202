@@ -41,7 +41,7 @@ if (Yii::$app->user->isGuest) {
         <a href="<?= Url::to(['site/dashboard', 'section' => 'profile']) ?>">👤 Profile</a>
         <a href="<?= Url::to(['voting/register','section' =>'Register']) ?>">📝Register Now</a>
         <a href="<?= Url::to(['site/details']) ?>" data-method="post">🗳️Cast Vote</a>
- <a href="<?= Url::to(['voting/index', 'section' => 'manage-elections']) ?>">👤 Manage Elections</a>
+<a href="<?= \yii\helpers\Url::to(['layout/index', 'section' => 'manage-elections']) ?>">👤 Manage Elections</a>
         <a href="<?= Url::to(['site/dashboard', 'section' => 'results']) ?>">📊 Results</a>
         <a href="<?= Url::to(['site/logout']) ?>" data-method="post">🚪 Logout</a>
         
