@@ -22,7 +22,7 @@ class Candidates extends ActiveRecord
             [['votes'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['photo'], 'string', 'max' => 255],
-            [['photoFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
+            [['photoFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
             [['votes'], 'default', 'value' => 0],
         ];
     }
