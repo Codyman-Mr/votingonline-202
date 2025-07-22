@@ -127,7 +127,7 @@ $this->registerJsFile('https://code.jquery.com/jquery-3.6.0.min.js', ['position'
         <tbody id="results-body">
             <?php 
             // Picha za wagombea wawili, zitumike kwa order hii
-            $photos = ['profile_1.png', 'profile_2.png'];
+            $photos = ['profile2.png', 'chea.jpg'];
             foreach ($candidates as $index => $candidate): 
                 $photoFile = isset($photos[$index]) ? $photos[$index] : 'default.png';
                 $photoUrl = \yii\helpers\Url::to("@web/uploads/{$photoFile}");
