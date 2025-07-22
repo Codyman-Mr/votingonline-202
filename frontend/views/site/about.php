@@ -109,9 +109,7 @@ $this->title = 'About Us';
             <p>Our platform provides a highly secure and efficient voting environment that ensures every vote counts. By leveraging modern technology, we can ensure a safe, fast, and easy voting experience.</p>
         </div>
 
-        <div class="about-img">
-            <img src="https://via.placeholder.com/800x600" alt="Voting System Image">
-        </div>
+        
     </div>
 
     <h3>Future Goals</h3>
