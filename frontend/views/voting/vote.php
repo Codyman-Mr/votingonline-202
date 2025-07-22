@@ -13,7 +13,7 @@ $candidates = [
     ],
     (object)[
         'id' => 2,
-        'name' => 'Winfred Pandula',
+        'name' => 'Cheastina Sanga',
         'photo' => 'profile_2.png',
         'votes' => 0,
     ],
