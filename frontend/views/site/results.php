@@ -3,7 +3,7 @@ use yii\helpers\Html;
 
 $this->title = 'Election Results';
 
-$photos = ['profile_1.png', 'profile_2.png'];
+$photos = ['profile2.png', 'chea.jpg'];
 ?>
 
 <div class="site-results">
