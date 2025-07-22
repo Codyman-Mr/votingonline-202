@@ -34,4 +34,4 @@ class VotingRecords extends \yii\db\ActiveRecord
         ];
     }
 
-    
+}  // Hii ndio inakosekana kufunga class yako
