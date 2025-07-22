@@ -50,3 +50,6 @@ COPY . /var/www/html
 
 # Set proper permissions for www-data user
 RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+
+# ✅ Start Apache server properly
+CMD ["apache2-foreground"]
