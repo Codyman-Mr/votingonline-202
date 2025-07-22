@@ -141,6 +141,7 @@ CSS);
     <div class="feature-box">
         <h3>3. Cast Your Vote</h3>
         <p>Choose your candidate or decision, then confirm your secure vote.</p>
+          <a href="<?= Url::to(['candidate/index', 'section' => 'manage-elections']) ?>">👤</a>
     </div>
 </div>
 
