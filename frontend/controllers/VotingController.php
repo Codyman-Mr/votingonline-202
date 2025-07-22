@@ -6,12 +6,11 @@ use Yii;
 use yii\web\Controller;
 use frontend\models\RegisteredVoters;
 use frontend\models\VotingRecords;
-use frontend\models\Candidates; // ← Hii hapa ndo ilikosekana
+use frontend\models\Candidates;
 use yii\web\NotFoundHttpException;
 
 class VotingController extends Controller
-{
-    // Weka muda wa mwisho wa kujiandikisha hapa
+{ // Weka muda wa mwisho wa kujiandikisha hapa
     public $registrationDeadline = '2027-12-31 23:59:59';  // Deadline mpaka mwisho 2027 kama ulivyotaka
 
     // Kujiandikisha
