@@ -1,21 +1,5 @@
-<?php
-namespace frontend\models;
-
-use Yii;
-
-/**
- * This is the model class for table "voting_records".
- *
- * @property int $id
- * @property string $voter_id_number
- * @property string $full_name
- * @property string|null $voted_at
- * @property string|null $candidate_name  // Ongeza hii property
- */
 class VotingRecords extends \yii\db\ActiveRecord
 {
-    public $candidate_name; // Hii ni property ili ihifadhi jina la mgombea
-
     public static function tableName()
     {
         return 'voting_records';
@@ -24,11 +8,11 @@ class VotingRecords extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['voter_id_number', 'full_name', 'candidate_name'], 'required'], // Ongeza candidate_name kama required
+            [['voter_id', 'candidate_id', 'candidate_name'], 'required'],
+            [['voter_id', 'candidate_id'], 'integer'],
             [['voted_at'], 'safe'],
-            [['voter_id_number'], 'string', 'max' => 100],
-            
-            [['candidate_name'], 'string', 'max' => 255],  // Validation ya jina la mgombea
+            [['candidate_name'], 'string', 'max' => 255],
+            [['voter_id_number'], 'string', 'max' => 255],
         ];
     }
 
@@ -36,10 +20,23 @@ class VotingRecords extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'voter_id_number' => 'Voter ID Number',
-            'full_name' => 'Full Name',
+            'voter_id' => 'Voter ID',
+            'candidate_id' => 'Candidate ID',
             'voted_at' => 'Voted At',
-            'candidate_name' => 'Candidate Name',  // Label kwa candidate_name
+            'candidate_name' => 'Candidate Name',
+            'voter_id_number' => 'Voter ID Number',
         ];
+    }
+
+    // Relation to Voter model
+    public function getVoter()
+    {
+        return $this->hasOne(Voter::class, ['id' => 'voter_id']);
+    }
+
+    // Relation to Candidate model
+    public function getCandidate()
+    {
+        return $this->hasOne(Candidate::class, ['id' => 'candidate_id']);
     }
 }
