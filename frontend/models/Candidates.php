@@ -4,62 +4,60 @@ namespace frontend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
-use yii\web\UploadedFile;
 
 class Candidates extends ActiveRecord
 {
-    public $photoFile; // property ya kupokea uploaded file
-
+    /**
+     * Jina la table ya database inahusiana na model hii.
+     */
     public static function tableName()
     {
-        return 'candidates';
+        return 'candidates';  // Hii ni jina la table kwenye database yako
     }
 
+    /**
+     * Hapa ni mahali ambapo tunaweza kuweka rules za validation za model hii.
+     */
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['votes'], 'integer'],
-            [['name'], 'string', 'max' => 100],
-            [['photo'], 'string', 'max' => 255],
-            [['photoFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
-            [['votes'], 'default', 'value' => 0],
+            [['name', 'photo'], 'required'],  // Uwanja wa jina na picha ni lazima
+            [['votes'], 'integer'],           // Kura lazima iwe nambari
+            [['name'], 'string', 'max' => 100],  // Jina linaweza kuwa na urefu wa mpaka 100 characters
+            [['photo'], 'string', 'max' => 255], // Picha inaweza kuwa na urefu wa mpaka 255 characters
+            [['votes'], 'default', 'value' => 0],  // Ikiwa kura hazijawekwa, weka 0 kama default
         ];
     }
 
+    /**
+     * Labels za attributes ili kusaidia katika tafsiri ya model hii.
+     */
     public function attributeLabels()
     {
         return [
             'id' => 'ID',
-            'name' => 'Candidate Name',
-            'photo' => 'Candidate Photo',
-            'photoFile' => 'Upload Photo',
-            'votes' => 'Votes',
+            'name' => 'Candidate Name', // Jina la mgombea
+            'photo' => 'Candidate Photo', // Picha ya mgombea
+            'votes' => 'Votes',  // Idadi ya kura zilizopigwa kwa mgombea huyu
         ];
     }
 
-    public function uploadPhoto()
+    /**
+     * Hii ni function ya kuongeza kura kwa mgombea.
+     * Tunatumia hii wakati kura zinapopigwa.
+     */
+    public function increaseVoteCount()
     {
-        if ($this->validate() && $this->photoFile) {
-            $uploadPath = Yii::getAlias('@frontend/web/uploads/');
-
-            if (!is_dir($uploadPath)) {
-                mkdir($uploadPath, 0777, true);
-            }
-
-            $fileName = time() . '_' . uniqid() . '.' . $this->photoFile->extension;
-            $fullPath = $uploadPath . $fileName;
-
-            if ($this->photoFile->saveAs($fullPath)) {
-                $this->photo = $fileName;
-                return true;
-            }
-        }
-        return false;
+        $this->votes += 1; // Ongeza moja kwenye kura zilizopo
+        return $this->save();  // Hifadhi mabadiliko kwenye database
     }
 
+    /**
+     * Hii ni function ya kupata picha ya mgombea kutoka kwa database.
+     * Inaruhusu picha za mgombea kupatikana kwa urahisi kwenye UI.
+     */
     public function getCandidatePhoto()
     {
-        return Yii::getAlias('@web/uploads/' . $this->photo);
+        return Yii::getAlias('@web/images/' . $this->photo);  // Path ya picha kwenye server
     }
 }
