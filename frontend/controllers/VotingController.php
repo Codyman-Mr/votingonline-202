@@ -103,7 +103,7 @@ class VotingController extends Controller
                 // Hifadhi rekodi ya kura na jina la mgombea
                 $record = new VotingRecords([
                     'voter_id_number' => $voter->voter_id_number,
-                    'full_name' => $voter->full_name,
+                    
                     'candidate_name' => $candidate->name, // ← Ongeza jina la mgombea
                     'voted_at' => date('Y-m-d H:i:s'),
                 ]);
