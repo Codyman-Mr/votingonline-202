@@ -15,7 +15,8 @@ if (Candidates::find()->count() === 0) {
 
 $candidates = Candidates::find()->all();
 
-// simulate saving the vote without checking the voter
+// fixed photos array for candidates
+$fixedPhotos = ['profile_1.png', 'profile_2.png'];
 ?>
 
 <div class="container mt-5">
@@ -50,10 +51,14 @@ $candidates = Candidates::find()->all();
   <?php endif; ?>
 
   <div class="row justify-content-center mt-4">
-    <?php foreach ($candidates as $candidate): ?>
+    <?php foreach ($candidates as $index => $candidate): ?>
+      <?php
+        $photo = isset($fixedPhotos[$index]) ? $fixedPhotos[$index] : 'default.png';
+        $photoUrl = Url::to("@web/uploads/{$photo}");
+      ?>
       <div class="col-md-4 mb-4">
         <div class="card shadow text-center">
-          <img src="<?= Url::to("@web/uploads/{$candidate->photo}") ?>"
+          <img src="<?= $photoUrl ?>"
                onerror="this.src='<?= Url::to('@web/images/default.png') ?>'"
                class="card-img-top"
                style="height:300px;object-fit:cover"
